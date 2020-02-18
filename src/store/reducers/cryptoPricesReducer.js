@@ -2,51 +2,43 @@ import {
   WS_CONNECT,
   WS_DATA_RECEIVED,
   WS_DISCONNECT
-} from "../actions/cryptoPricesAction"
+} from "../actions/cryptoPricesAction";
 
 const initialState = {
-  cryptoPriceList: [],
   cryptoData: [
-    { name: "bitcoin", price: null },
-    { name: "ethereum", price: null },
-    { name: "monero", price: null },
-    { name: "litecoin", price: null },
-    { name: "ripple", price: null },
-    { name: "bitcoin-cash", price: null },
-    { name: "tron", price: null },
-    { name: "tether", price: null }
-  ],
-  cryptoPriceList2: {
-    bitcoin: null,
-    ethereum: null,
-    monero: null,
-    litecoin: null
-  }
-}
+    { name: "bitcoin", price: null, imgName: "btc" },
+    { name: "bitcoin-cash", price: null, imgName: "bch" },
+    { name: "ethereum", price: null, imgName: "eth" },
+    { name: "monero", price: null, imgName: "xmr" },
+    { name: "litecoin", price: null, imgName: "ltc" },
+    { name: "ripple", price: null, imgName: "xrp" },
+    { name: "tron", price: null, imgName: "trx" }
+  ]
+};
 
 export const cryptoPricesReducer = (state = initialState, action) => {
   switch (action.type) {
     case WS_CONNECT:
-      return { ...state }
+      return { ...state };
 
     case WS_DATA_RECEIVED:
-      let newData = [...state.cryptoData]
+      let newData = [...state.cryptoData];
 
       for (let key in action.payload) {
         newData.map(c =>
           c.name === key ? (c.price = action.payload[key]) : null
-        )
+        );
       }
 
       return {
         ...state,
         cryptoData: [...newData]
-      }
+      };
 
     case WS_DISCONNECT:
-      return { ...state }
+      return { ...state };
 
     default:
-      return state
+      return state;
   }
-}
+};

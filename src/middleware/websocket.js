@@ -21,7 +21,7 @@ const socketMiddleware = () => {
 
         // connect to the remote host
         socket = new WebSocket(
-          "wss://ws.coincap.io/prices?assets=bitcoin,ethereum,monero,litecoin,ripple,bitcoin-cash,tron,tether"
+          "wss://ws.coincap.io/prices?assets=bitcoin,ethereum,monero,litecoin,ripple,bitcoin-cash,tron"
         )
 
         // websocket handlers
@@ -36,7 +36,6 @@ const socketMiddleware = () => {
         break
 
       default:
-        console.log("the next action:", action)
         return next(action)
     }
   }
